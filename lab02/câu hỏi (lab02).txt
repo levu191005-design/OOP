@@ -1,0 +1,31 @@
+ 1-> Không
+Bởi vì:
+ + Vi phạm quy tắc nạp chồng:để nạp chồng một constructor, các phương thức phải có chữ ký khác nhau. Chữ ký này dựa trên:
+    * Số lượng tham số.
+    * Kiểu dữ liệu của tham số.
+    * Thứ tự của các kiểu dữ liệu.
+ + Sự trùng lặp về kiểu dữ liệu: title và category thông thường đều có kiểu dữ liệu là String.
+    Constructor 1: public DVD(String title) { ... }
+    Constructor 2: public DVD(String category) { ... }
++ Lỗi biên dịch: Vì cả hai constructor đều chỉ nhận vào một tham số kiểu String,
+trình biên dịch Java sẽ không thể phân biệt được chúng khi khởi tạo đối tượng (ví dụ: new DVD("Action")
+thì Java không biết "Action" là tiêu đề hay thể loại). Do đó, Java sẽ báo lỗi "Duplicate method".
+2
+-> java là ngôn ngữ lập trình chỉ truyền tham trị
+* Giải thích:
++ Đối với các kiểu dữ liệu nguyên thủy: Như int, double, boolean... Java sẽ tạo ra một bản sao của giá trị và truyền bản sao đó
+vào phương thức. Mọi thay đổi bên trong phương thức không làm ảnh hưởng đến biến gốc bên ngoài.
++ Đối với các kiểu dữ liệu đối tượng:
+    * Khi truyền một đối tượng vào phương thức, Java không truyền chính cái đối tượng đó, và cũng không truyền tham chiếu gốc.
+    Thay vào đó, nó tạo ra một bản sao của địa chỉ vùng nhớ của đối tượng đó và truyền bản sao địa chỉ này đi.
+    Vì cả biến gốc và biến trong phương thức đều cùng trỏ về một địa chỉ vùng nhớ, ta có thể thay đổi nội dung bên trong đối tượng.
+    Tuy nhiên, nếu bạn gán biến đó cho một đối tượng mới (new Object()), biến gốc bên ngoài vẫn sẽ không thay đổi.
+    * Ví dụ:
+Nếu có một phương thức swap(Object a, Object b), ta sẽ không bao giờ có thể tráo đổi vị trí của hai đối tượng gốc bên ngoài được
+ vì Java chỉ đang làm việc trên bản sao của các địa chỉ mà thôi.
+  * After the call of swap(jungleDVD, cinderellaDVD), why does the title of these two objects still remain?
+ -> Java là truyền tham trị. Hàm swap chỉ tráo đổi các biến cục bộ (bản sao tham chiếu) bên trong hàm,
+ không làm thay đổi địa chỉ mà các biến gốc ở hàm main đang trỏ tới.
+ - * After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()), why is the title of the JungleDVD changed?
+ Mặc dù truyền tham trị, nhưng bản sao tham chiếu vẫn trỏ tới cùng một đối tượng trong bộ nhớ Heap.
+ Hàm changeTitle đã sử dụng tham chiếu này để gọi phương thức setTitle(), trực tiếp sửa đổi dữ liệu bên trong đối tượng gốc.
