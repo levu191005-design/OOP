@@ -1,0 +1,54 @@
+----------------------------------------------------------------
+* 14. Các lớp nào là "Aggregates" của các lớp khác?
+Aggregation (Quan hệ toàn thể - bộ phận) xảy ra khi một lớp chứa một danh sách các đối tượng của lớp khác.
+Bao gồm:
+Lớp Cart: Là tập hợp của các đối tượng Media. Nó chứa một ArrayList<Media>.
+
+Lớp Store: Tương tự như Cart, là tập hợp của các Media có trong cửa hàng.
+
+Lớp CompactDisc: Là tập hợp của các đối tượng Track. Nó chứa một ArrayList<Track>.
+----------------------------------------------------------------
+* 17.
+1. Lớp nào nên implement interface Comparable?
+Lớp Media nên implement interface Comparable<Media>.
+Lý do: Vì Media là lớp cha của DigitalVideoDisc, Book và CompactDisc.
+Khi định nghĩa khả năng so sánh ở lớp cha, tất cả các lớp con sẽ tự động có khả năng so sánh này,
+cho phép sắp xếp một danh sách hỗn hợp các loại Media trong giỏ hàng.
+
+2. Triển khai hàm compareTo() như thế nào?
+Ghi đè phương thức này trong lớp Media để phản ánh thứ tự ưu tiên
+(sắp xếp theo Tiêu đề, nếu trùng thì xét đến Giá).
+/*
+@Override
+public int compareTo(Media other) {
+    // So sánh tiêu đề
+    int titleDiff = this.title.compareToIgnoreCase(other.getTitle());
+    if (titleDiff != 0) {
+        return titleDiff;
+    }
+    // Nếu tiêu đề giống nhau, so sánh giá (giảm dần)
+    return Float.compare(other.getCost(), this.cost);
+}
+*/
+3. Có thể có 2 quy tắc sắp xếp (Title-Cost và Cost-Title) nếu dùng Comparable không
+->Không.
+
+Giải thích: Interface Comparable chỉ cho phép định nghĩa một quy tắc sắp xếp duy nhất.
+
+Nếu muốn có nhiều quy tắc khác nhau để người dùng lựa chọn
+(lúc thì xếp theo giá, lúc thì xếp theo tên) -> bắt buộc phải dùng Comparator.
+
+4. Nếu DVD có quy tắc riêng (Title -> Length -> Cost), sửa code thế nào?
+Để xử lý trường hợp đặc thù này mà vẫn giữ được tính linh hoạt, ta nên làm như sau:
+
+Ghi đè compareTo tại lớp DigitalVideoDisc: Có thể ghi đè lại hàm compareTo ngay trong lớp DVD
+để nó thực hiện logic so sánh riêng (Title -> Length -> Cost) thay vì dùng logic chung của lớp Media.
+
+Sử dụng kiểm tra kiểu (Type Checking): Trong hàm so sánh,dùng instanceof để kiểm tra:
+
++ Nếu cả hai đều là DVD: So sánh theo Title -> Length -> Cost.
+
++ Nếu không: Quay lại dùng quy tắc chung của Media.
+
+Cách tốt nhất là dùng Comparator riêng cho DVD.
+Khi cần sắp xếp danh sách toàn DVD, ta truyền bộ DVDComparator vào hàm Collections.sort().
