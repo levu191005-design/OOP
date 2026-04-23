@@ -1,0 +1,12 @@
+<<<<<<< HEAD
+Câu hỏi (lab01)
+1.Nếu chọn Cancel, điều kiện sai -> Cancel bị xử lý giống như No
+2.Có 2 cách:
+-Dùng showConfirmDialog → chọn loại YES/NO
+=======
+Câu hỏi (lab01)
+1.Nếu chọn Cancel, điều kiện sai -> Cancel bị xử lý giống như No
+2.Có 2 cách:
+-Dùng showConfirmDialog → chọn loại YES/NO
+>>>>>>> af00c4e3566c8644ae165e5d9e480545198b2258
+-Dùng showOptionDialog → tùy chỉnh hoàn toàn nội dung nút
