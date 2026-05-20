@@ -1,0 +1,36 @@
+1.
+- Hàm JOptionPane.showConfirmDialog mặc định sẽ hiện 3 nút yes, no, cancel
+- Khi chọn yes, biến option nhận giá trị YES_OPTION (thường là 0)
+- Nếu là no, option nhận NO_OPTION (thường là 1)
+- Nếu chọn cancel, option nhận giá trị CANCEL_OPTION (thường là 2)
+- Trong đoạn code " option == JOptionPane.YES_OPTION ? "YES" : "NO") "
+
+- vì giá trị của cancel khác với yes, tuc là khi ta bấm cancel, biến option mang giá trị 2
+chương trình sẽ kiểm tra 2 có băằng YES_OPTION ? -> không
+---> nên giá trị thông báo sẽ là "You've choosen NO"
+2.
+- Để tùy chình nút bấm, ta có thể sử dụng thư viện javax.swing.JOptionPane
+ex:
+a) chỉ hiện thị 2 nút yes và no: thêm tham số vào hàm showConfirmDialog
+    int option = JOptionPane.showConfirmDialog(null,
+    "Do you want to change to the first class ticket?",
+    "Confirmation",
+    JOptionPane.YES_NO_OPTION);
+b) "I do" và "I don't"
+        Object[] options = {"I do", "I don't"};
+
+        int option = JOptionPane.showOptionDialog(null,
+                "Do you want to change to the first class ticket?",
+                "Custom Option",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        if (option == 0) {
+            JOptionPane.showMessageDialog(null, "You've chosen: I do");
+        } else {
+            JOptionPane.showMessageDialog(null, "You've chosen: I don't");
+        }
+
+
