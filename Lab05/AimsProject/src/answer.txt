@@ -1,0 +1,15 @@
+Câu 1: What happens when you don't update for them to catch?
+(Nếu không cập nhật để bắt exception thì điều gì sẽ xảy ra?)
+
+Trả lời: Nếu không bắt exception, chương trình sẽ bị crash (dừng đột ngột) và in ra stack trace lỗi trên console. Chương trình sẽ kết thúc bất thường.
+
+Câu 2: Make an exception hierarchical tree for all self-defined exceptions in Aims Project.
+(Vẽ sơ đồ cây phân cấp cho tất cả exception tự định nghĩa trong Aims Project)
+
+Trả lời:
+Throwable
+├── Exception
+│   ├── PlayerException
+│   ├── LimitExceededException
+└── Error
+    └── (các lỗi hệ thống khác)
