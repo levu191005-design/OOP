@@ -1,0 +1,44 @@
+# 1/ compare swing and awt elements
+1. So sánh các vùng chứa cấp cao nhất:
+--------------------------------------------------------------------------------
+- Top-level containers của AWT: Bao gồm Frame, Dialog và Window. Chúng là các
+  thành phần "nặng" (heavyweight), nghĩa là chúng phụ thuộc trực tiếp vào bộ
+  công cụ giao diện (windowing toolkit) của Hệ điều hành gốc để hiển thị.
+- Top-level containers của Swing: Bao gồm JFrame, JDialog và JWindow. Ngoại trừ
+  các vùng chứa cấp cao này, hầu hết các thành phần khác của Swing đều là "nhẹ"
+  (lightweight - được vẽ hoàn toàn bằng Java mà không dùng các thành phần đồng
+  cấp của OS). Các vùng chứa cấp cao của Swing sở hữu một lớp đệm 'content pane'
+  để quản lý các thành phần con, điều mà vùng chứa AWT không có.
+
+2. So sánh tên Class của các thành phần trong AWT và Swing tương ứng:
+--------------------------------------------------------------------------------
+- Hầu hết tên các class thành phần của Swing được kế thừa trực tiếp từ tên class
+  của AWT nhưng được thêm tiền tố là chữ cái 'J' ở đầu.
+- Ví dụ bản đồ ánh xạ tương ứng:
+  * Button (AWT)       --->  JButton (Swing)
+  * Label (AWT)        --->  JLabel (Swing)
+  * TextField (AWT)    --->  JTextField (Swing)
+  * TextArea (AWT)     --->  JTextArea (Swing)
+  * Checkbox (AWT)     --->  JCheckBox (Swing)
+  * Choice (AWT)       --->  JComboBox (Swing)
+  * Panel (AWT)        --->  JPanel (Swing)
+
+3. So sánh cơ chế xử lý sự kiện của ứng dụng Swing và AWT:
+--------------------------------------------------------------------------------
+- Cả Swing và AWT đều chia sẻ chung một mô hình xử lý sự kiện cốt lõi là Mô hình
+  ủy quyền sự kiện, sử dụng các bộ lắng nghe (Listeners
+  như ActionListener, MouseListener) và các bộ tương thích (Adapters như WindowAdapter).
+- Tuy nhiên, Swing mở rộng mạnh mẽ hơn khi cung cấp các thuộc tính sự kiện linh hoạt
+  và phong phú, hỗ trợ tốt hơn cho các tổ hợp phím tắt (Key Bindings), và tích hợp
+  sẵn các cơ chế xử lý sự kiện cho các thành phần phức tạp (như sự kiện chọn trên
+  cây dữ liệu JTree hoặc thay đổi mô hình bảng JTable) mà AWT cơ bản không có.
+
+4. So sánh giao diện hiển thị kết quả:
+--------------------------------------------------------------------------------
+- Giao diện của AWT: Phụ thuộc hoàn toàn vào nền tảng (Platform-dependent). Một
+  ứng dụng AWT chạy trên Windows sẽ có giao diện nút bấm, khung viền giống hệt các
+  app Windows native, nhưng khi mang sang macOS nó lại đổi giao diện theo kiểu Mac.
+  Điều này dễ làm vỡ hoặc mất cân đối bố cục layout khi đổi OS.
+- Giao diện của Swing: Không phụ thuộc vào nền tảng (Platform-independent). Swing
+  hỗ trợ cơ chế "Pluggable Look and Feel" (PLAF), cho phép ứng dụng giữ nguyên một
+  giao diện đồng nhất, tùy biến cao trên bất kỳ hệ điều hành  nào mà nó khởi chạy.
